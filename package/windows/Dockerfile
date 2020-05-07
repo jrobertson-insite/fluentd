@@ -1,4 +1,4 @@
-ARG SERVERCORE_VERSION
+ARG SERVERCORE_VERSION=ltsc2019
 
 FROM mcr.microsoft.com/windows/servercore:${SERVERCORE_VERSION}
 
