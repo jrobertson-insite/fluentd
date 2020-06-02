@@ -21,3 +21,5 @@ gem 'fluent-plugin-multi-format-parser'
 
 # third party
 gem 'zookeeper'
+
+gem 'fluent-plugin-parser-winevt_xml'

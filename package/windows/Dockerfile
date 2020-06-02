@@ -14,18 +14,20 @@ COPY Gemfile 'C:\fluentd\install\Gemfile'
 COPY Gemfile.lock 'C:\fluentd\install\Gemfile.lock'
 
 RUN refreshenv; \
-ridk install 2 3; \
-'gem: --no-document' | Out-File -Encoding UTF8 -NoNewline -Force -FilePath 'C:\ProgramData\gemrc'; \
-gem install bundler; \
-bundle config build.certstore_c --with-cflags="-Wno-attributes"; \
-bundle config build.yajl-ruby --with-cflags="-Wno-attributes"; \
-bundle config build.oj --with-cflags="-Wno-attributes"; \
-bundle install --gemfile='C:\fluentd\install\Gemfile'; \
-gem sources --clear-all; \
-Remove-Item -Force C:\ruby24\lib\ruby\gems\2.4.0\cache\*.gem; \
-Remove-Item -Recurse -Force C:\ProgramData\chocolatey
+    ridk install 2 3; \
+    'gem: --no-document' | Out-File -Encoding UTF8 -NoNewline -Force -FilePath 'C:\ProgramData\gemrc'; \
+    gem install bundler; \
+    bundle config build.certstore_c --with-cflags="-Wno-attributes"; \
+    bundle config build.yajl-ruby --with-cflags="-Wno-attributes"; \
+    bundle config build.oj --with-cflags="-Wno-attributes"; \
+    bundle install --gemfile='C:\fluentd\install\Gemfile'; \
+    gem sources --clear-all; \
+    Remove-Item -Force C:\ruby24\lib\ruby\gems\2.4.0\cache\*.gem; \
+    Remove-Item -Recurse -Force C:\ProgramData\chocolatey
 
-COPY upgrade-gems.ps1 'C:\fluentd\install\upgrade-gems.ps1'
-COPY fluent.conf 'C:\etc\fluent\fluent.conf'
+COPY upgrade-gems.ps1 '/fluentd/install/upgrade-gems.ps1'
 
-CMD ["powershell", "-command", "fluentd"]
+COPY plugins/. /fluentd/plugins/
+COPY conf/. /etc/fluent
+
+CMD ["powershell", "-command", "fluentd -p /fluentd/plugins"]

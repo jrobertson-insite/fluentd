@@ -23,5 +23,9 @@ gem 'fluent-plugin-remote_syslog_tls'
 # filter plugins
 gem 'fluent-plugin-concat'
 gem 'fluent-plugin-rewrite-tag-filter'
-gem 'fluent-plugin-multi-format-parser' 
+gem 'fluent-plugin-multi-format-parser'
+gem 'fluent-plugin-grok-parser'
+gem 'fluent-plugin-json-in-json-2'
+gem 'fluent-plugin-record-modifier'
 
+gem 'fluent-plugin-parser-winevt_xml'
